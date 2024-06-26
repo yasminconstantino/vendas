@@ -10,7 +10,7 @@ public class HomeController {
         int op = 0;
 
         do {
-            System.out.println("\n --- Bem-vindo a Nimsay Store ---");
+            System.out.println("\n --- Nimsay Store ---");
             System.out.println("\n --- Home ---");
             System.out.println("(para escolher uma opção digite um numero inteiro)");
             System.out.println(

@@ -16,42 +16,28 @@ public class PedidosController {
         do {
             System.out.println("\n\n******** Pedidos ********");
             System.out.print(
-                    "1. Check-out do pedido" +
-                            "\n2. Enviar Pedido" +
-                            "\n3. Excluir Pedido" +
-                            "\n4. Lista todos os pedidos inativos" +
-                            "\n5. Lista todos os pedidos ativos" +
-                            "\n6. Lista todos os pedidos por período" +
-                            "\n7. Listar pedidos de um cliente" +
+                    		"\n1. Excluir Pedido" +
+                            "\n2. Lista todos os pedidos inativos" +
+                            "\n3. Lista todos os pedidos ativos" +
+                            "\n4. Lista todos os pedidos por período" +
+                            "\n5. Listar pedidos de um cliente" +
                             "\nDigite a opção (0 para sair): ");
             op = input.nextInt();
             input.nextLine();
             switch (op) {
                 case 1:
-                    checkout();
-                    System.out.println("em desenvolvimento " + op);
+                    excluir();
                     break;
                 case 2:
-                    enviar();
-                    // System.out.println("em desenvolvimento " + op);
+                    listarPedidosInativos();
                     break;
                 case 3:
-                    excluir();
-                    // System.out.println("em desenvolvimento " + op);
+                    listarPedidosAtivos();
                     break;
                 case 4:
-                    listarPedidosInativos();
-                    // System.out.println("em desenvolvimento " + op);
-                    break;
-                case 5:
-                    listarPedidosAtivos();
-                    // System.out.println("em desenvolvimento " + op);
-                    break;
-                case 6:
                     pedidosPorPeriodo();
                     break;
-
-                case 7:
+                case 5:
                     selectPedidosByIdCliente();
                     break;
                 default:

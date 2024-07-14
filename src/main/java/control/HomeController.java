@@ -1,6 +1,6 @@
 package control;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class HomeController {
     private static final Scanner input = new Scanner(System.in);
@@ -17,7 +17,7 @@ public class HomeController {
                     "\n 1 - Vender" +
                             "\n 2 - Manter produto" +
                             "\n 3 - Manter Clientes" +
-                            "\n 4 - Mnater Itens" +
+                            "\n 4 - Manter Itens" +
                             "\n 5 - Manter Pedidos" +
                             "\n 0 - Sair");
             op = input.nextInt();

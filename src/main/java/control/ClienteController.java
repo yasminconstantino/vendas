@@ -1,6 +1,7 @@
 package control;
 
-import java.util.*;
+import java.util.List;
+import java.util.Scanner;
 
 import dao.ClienteDAO;
 import model.Cliente;
@@ -74,7 +75,7 @@ public class ClienteController {
         int op = 0;
         do {
             System.out.print("\nDigite o código do cliente \n(Zero p/sair): ");
-            long codigo = input.nextLong();
+            int codigo = input.nextInt();
             input.nextLine();
             if (codigo == 0) {
                 op = 0;
@@ -118,7 +119,7 @@ public class ClienteController {
     // opção 4
     private static void selectClientesById() {
         System.out.print("\nDigite o código do cliente: ");
-        Cliente cliente = ClienteDAO.selectClienteById(input.nextLong());
+        Cliente cliente = ClienteDAO.selectClienteById(input.nextInt());
         input.nextLine();
         if (cliente != null) {
             System.out.println(cliente);

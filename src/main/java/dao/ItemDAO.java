@@ -1,18 +1,22 @@
 package dao;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Item;
 
 public class ItemDAO extends BaseDAO {
-    public static List<Item> selectItemByPedido(final long id) {
+    public static List<Item> selectItemByPedido(final int id) {
         final String sql = "SELECT * FROM itens WHERE id_pedido=?";
         try // try-witch-resource
         (
                 Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            pstmt.setLong(1, id);
+            pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             List<Item> produtos = new ArrayList<>();
             while (rs.next()) {
@@ -27,8 +31,8 @@ public class ItemDAO extends BaseDAO {
 
     private static Item resultsetToProduto(ResultSet rs) throws SQLException {
         Item item = new Item();
-        item.setIdItemPedido(rs.getLong("id"));
-        item.setProduto(ProdutoDAO.selectProdutoById(rs.getLong("id_produto")));
+        item.setIdItemPedido(rs.getInt("id"));
+        item.setProduto(ProdutoDAO.selectProdutoById(rs.getInt("id_produto")));
         item.setQuantidade(rs.getInt("quantidade"));
         item.setSituacao(rs.getBoolean("situacao"));
         item.setTotalItem(rs.getDouble("total_item"));

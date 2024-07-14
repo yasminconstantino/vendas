@@ -5,14 +5,14 @@ import java.util.List;
 
 public class Cliente {
     //atributos
-    private Long id;
+    private int id;
     private String nome;
     private String sobrenome;
     private Boolean situacao;
     private List <Pedido> pedidos = new ArrayList<>();
 
     //construtores
-    public Cliente(String nome, String sobrenome, Long id, Boolean situacao, List<Pedido> pedidos) {
+    public Cliente(String nome, String sobrenome, int id, Boolean situacao, List<Pedido> pedidos) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.id = id;
@@ -20,7 +20,7 @@ public class Cliente {
         this.pedidos = pedidos;
     }
 
-    public Cliente(Long id, String nome, String sobrenome, Boolean situacao) {
+    public Cliente(int id, String nome, String sobrenome, Boolean situacao) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -37,11 +37,11 @@ public class Cliente {
     }
 
     //acessores
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

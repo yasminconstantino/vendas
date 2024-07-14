@@ -1,7 +1,11 @@
 package dao;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Cliente;
 
@@ -60,10 +64,10 @@ public class ClienteDAO extends BaseDAO {
         }
     }
 
-    public static Cliente selectClienteById(Long id) {
+    public static Cliente selectClienteById(int id) {
         final String sql = "SELECT * FROM clientes WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            pstmt.setLong(1, id);
+            pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             Cliente cliente = null;
             if (rs.next()) {
@@ -103,7 +107,7 @@ public class ClienteDAO extends BaseDAO {
             pstmt.setString(1, cliente.getNome());
             pstmt.setString(2, cliente.getSobrenome());
             pstmt.setBoolean(3, cliente.getSituacao());
-            pstmt.setLong(4, cliente.getId());
+            pstmt.setInt(4, cliente.getId());
             int count = pstmt.executeUpdate();
             return count > 0;
 
@@ -113,11 +117,11 @@ public class ClienteDAO extends BaseDAO {
         }
     }
 
-    public static boolean softDeleteCliente(long id, boolean situacao) {
+    public static boolean softDeleteCliente(int id, boolean situacao) {
         final String sql = "UPDATE clientes SET situacao=? WHERE id=?";
         try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setBoolean(1, situacao);
-            pstmt.setLong(2, id);
+            pstmt.setInt(2, id);
             int count = pstmt.executeUpdate();
             return count > 0;
         } catch (SQLException e) {
@@ -130,7 +134,7 @@ public class ClienteDAO extends BaseDAO {
     // Cliente)
     private static Cliente resultsetToCliente(ResultSet rs) throws SQLException {
         Cliente c = new Cliente();
-        c.setId(rs.getLong("id"));
+        c.setId(rs.getInt("id"));
         c.setNome(rs.getString("nome"));
         c.setSobrenome(rs.getString("sobrenome"));
         c.setSituacao(rs.getBoolean("situacao"));

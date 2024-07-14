@@ -1,6 +1,7 @@
 package control;
 
-import java.util.*;
+import java.util.List;
+import java.util.Scanner;
 
 import dao.ProdutoDAO;
 import model.Produto;
@@ -102,7 +103,7 @@ public class ProdutoController {
         int op = 0;
         do {
             System.out.println("\nDigite o id do produto que desej alterar ou zero p/ sair: ");
-            long cod = input.nextLong();
+            int cod = input.nextInt();
             input.nextLine();
             if (cod == 0) {
                 op = 0;
@@ -160,7 +161,7 @@ public class ProdutoController {
 
     private static void selectProdutoById() {
         System.out.println("\n Digite o id do produto: ");
-        Produto prod = ProdutoDAO.selectProdutoById(input.nextLong());// o input deve sempre ser seguido de next e o
+        Produto prod = ProdutoDAO.selectProdutoById(input.nextInt());// o input deve sempre ser seguido de next e o
                                                                       // tipo do dado
         input.nextLine();
         if (prod != null) {

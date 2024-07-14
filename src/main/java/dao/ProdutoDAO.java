@@ -1,7 +1,11 @@
 package dao;
 
-import java.util.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Produto;
 
@@ -61,14 +65,14 @@ public class ProdutoDAO extends BaseDAO {
 		}
 	}
 
-	public static Produto selectProdutoById(Long idProduto) {
+	public static Produto selectProdutoById(int  idProduto) {
 		final String sql = "SELECT * FROM produtos WHERE id=?"; // o ? pertence ao prepared statement e conforme for
 																// executado sera substituido pelo valor q chegar pela
 																// pprta de enrada do metodo7
 		try (
 				Connection conn = getConnection();
 				PreparedStatement pstnt = conn.prepareStatement(sql);) {
-			pstnt.setLong(1, idProduto);
+			pstnt.setInt (1, idProduto);
 			ResultSet rs = pstnt.executeQuery();
 			// Produto p = new Produto(); contrtuo o objeto de forma padrao
 			Produto p = null; // sempre retorna o null quando não houver registro
@@ -112,7 +116,7 @@ public class ProdutoDAO extends BaseDAO {
 			pstnt.setDouble(3, produto.getValor());
 			pstnt.setBoolean(4, produto.getSituacao());
 			pstnt.setInt(5, produto.getQuantidade());
-			pstnt.setLong(6, produto.getIdProduto());
+			pstnt.setInt (6, produto.getIdProduto());
 			int count = pstnt.executeUpdate();
 
 			return count > 0;
@@ -122,14 +126,14 @@ public class ProdutoDAO extends BaseDAO {
 		}
 	}
 
-	public static boolean SoftDeleteProduto(long id, boolean situacao) {
+	public static boolean SoftDeleteProduto(int  id, boolean situacao) {
 		final String sql = "UPDATE produtos SET situacao=? WHERE id=?";
 		try (
 				Connection conn = getConnection();
 				PreparedStatement pstnt = conn.prepareStatement(sql);) {
 			pstnt.setBoolean(1, situacao);
 
-			pstnt.setLong(2, id);
+			pstnt.setInt (2, id);
 			int count = pstnt.executeUpdate();
 
 			return count > 0;
@@ -143,7 +147,7 @@ public class ProdutoDAO extends BaseDAO {
 		// colocamos um throws pois ja usamos o try catch acima e ele ja faz o
 		// tratamento das execoes
 		Produto p = new Produto();
-		p.setIdProduto(rs.getLong("id"));
+		p.setIdProduto(rs.getInt ("id"));
 		p.setNome(rs.getString("nome"));
 		p.setValor(rs.getDouble("valor"));
 		p.setDescricao(rs.getString("descricao"));
@@ -163,7 +167,7 @@ public class ProdutoDAO extends BaseDAO {
 		// Produto produto = new Produto(6L, "Corote", "Sabor morango 500ml", 5.6, true,
 		// 58);
 		// System.out.println(updateProduto(produto));
-		System.out.println(SoftDeleteProduto(6L, true));
+		System.out.println(SoftDeleteProduto(6, true));
 	}
 
 }

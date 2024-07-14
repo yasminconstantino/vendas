@@ -29,23 +29,23 @@ public class PedidoDAO extends BaseDAO {
             pstmt_pedidos.setString(2, pedido.getEstado());
             pstmt_pedidos.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
             pstmt_pedidos.setDate(4, java.sql.Date.valueOf(LocalDate.now()));
-            pstmt_pedidos.setLong(5, pedido.getCliente().getId());
+            pstmt_pedidos.setInt(5, pedido.getCliente().getId());
             pstmt_pedidos.setDouble(6, pedido.getTotalPedido());
             pstmt_pedidos.setBoolean(7, true);
             int count = pstmt_pedidos.executeUpdate();
-            long id = 0L;
+            int id = 0;
             if (count > 0) { // se inseriu o pedido na tabela pedidos, pega o id e salva os itens
                 ResultSet rs = pstmt_pedidos.getGeneratedKeys();
                 if (rs.next()) {
-                    id = rs.getLong(1);
+                    id = rs.getInt(1);
                 }
                 rs.close(); // libera o objeto
                 /*
                  * Realiza a operação de inserção na tabela itens.
                  */
                 for (Item i : pedido.getItens()) {
-                    pstmt_itens.setLong(1, i.getProduto().getIdProduto());
-                    pstmt_itens.setLong(2, id); // id foi gerado no insert anterior, da tabela pedidos
+                    pstmt_itens.setInt(1, i.getProduto().getIdProduto());
+                    pstmt_itens.setInt(2, id); // id foi gerado no insert anterior, da tabela pedidos
                     pstmt_itens.setInt(3, i.getQuantidade());
                     pstmt_itens.setDouble(4, i.getTotalItem());
                     pstmt_itens.setBoolean(5, true);
@@ -66,12 +66,12 @@ public class PedidoDAO extends BaseDAO {
         }
     }
 
-    public static Pedido selectPedidoById(Long id) {
+    public static Pedido selectPedidoById(int id) {
         final String sql = "SELECT * FROM pedidos WHERE id = ?";
         try (
                 Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            pstmt.setLong(1, id);
+            pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 return resultsetToPedido(rs);
@@ -94,7 +94,7 @@ public class PedidoDAO extends BaseDAO {
             pstmt.setDate(3, java.sql.Date.valueOf(pedido.getDataModificacao()));
             pstmt.setDouble(4, pedido.getTotalPedido());
             pstmt.setBoolean(5, pedido.getSituacao());
-            pstmt.setLong(6, pedido.getId());
+            pstmt.setInt(6, pedido.getId());
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -103,12 +103,12 @@ public class PedidoDAO extends BaseDAO {
         }
     }
 
-    public static boolean deletePedido(Long id) {
+    public static boolean deletePedido(int id) {
         final String sql = "DELETE FROM pedidos WHERE id = ?";
         try (
                 Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            pstmt.setLong(1, id);
+            pstmt.setInt(1, id);
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -136,12 +136,12 @@ public class PedidoDAO extends BaseDAO {
         }
     }
 
-    public static List<Pedido> selectPedidosByIdCliente(Long id) {
+    public static List<Pedido> selectPedidosByIdCliente(int id) {
         final String sql = "SELECT * FROM pedidos WHERE id_cliente=?";
         try (
                 Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            pstmt.setLong(1, id);
+            pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             List<Pedido> pedidos = new ArrayList<>();
             if (rs.next()) {
@@ -180,14 +180,14 @@ public class PedidoDAO extends BaseDAO {
     // Produto)
     private static Pedido resultsetToPedido(ResultSet rs) throws SQLException {
         Pedido p = new Pedido();
-        p.setId(rs.getLong("id"));
+        p.setId(rs.getInt("id"));
         p.setFormaPagamento(rs.getString("pagamento"));
         p.setEstado(rs.getString("estado"));
         p.setDataCriacao(rs.getDate("data_criacao").toLocalDate());
         p.setDataModificacao(rs.getDate("data_modificacao").toLocalDate());
         p.setTotalPedido(rs.getDouble("total_pedido"));
         p.setSituacao(rs.getBoolean("situacao"));
-        p.setCliente(ClienteDAO.selectClienteById(rs.getLong("id_cliente")));
+        p.setCliente(ClienteDAO.selectClienteById(rs.getInt("id_cliente")));
         p.setItens(ItemDAO.selectItemByPedido(p.getId()));
 
         return p;

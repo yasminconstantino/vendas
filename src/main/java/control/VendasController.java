@@ -1,5 +1,10 @@
 package control;
 
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 import dao.ClienteDAO;
 import dao.PedidoDAO;
 import dao.ProdutoDAO;
@@ -7,9 +12,6 @@ import model.Cliente;
 import model.Item;
 import model.Pedido;
 import model.Produto;
-
-import java.text.*;
-import java.util.*;
 
 public class VendasController {
     private static final Scanner input = new Scanner(System.in);
@@ -25,7 +27,7 @@ public class VendasController {
             op = 0;
             System.out.println("\n --- Vendas --- ");
             System.out.print("Digite o id do cliente: ");
-            long codCliente = input.nextLong();
+            int codCliente = input.nextInt();
             input.nextLine();
             cliente = ClienteDAO.selectClienteById(codCliente);
             if (cliente == null) {
@@ -36,7 +38,7 @@ public class VendasController {
                 int sair = 2;
                 do {
                     System.out.print("Digite o código do produto: ");
-                    long codProd = input.nextLong();
+                    int codProd = input.nextInt();
                     input.nextLine();
                     produto = ProdutoDAO.selectProdutoById(codProd);
                     if (produto == null) {

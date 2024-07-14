@@ -1,12 +1,13 @@
 package model;
 
-import java.util.*;
-import java.time.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pedido {
 
     // atributos
-    private Long id;
+    private int id;
     private String formaPagamento;
     private LocalDate dataCriacao;
     private String estado;
@@ -20,7 +21,7 @@ public class Pedido {
     List<Item> itens = new ArrayList<>();
 
     // construtores
-    public Pedido(Long id, String formaPagamento, LocalDate dataCriacao, String estado,
+    public Pedido(int id, String formaPagamento, LocalDate dataCriacao, String estado,
             LocalDate dataModificacao, Double totalPedido, Boolean situacao, Cliente cliente,
             List<Item> itens) {
         this.id = id;
@@ -39,7 +40,7 @@ public class Pedido {
     }
 
     // construtores
-    public Pedido(Long id, String formaPagamento, LocalDate dataCriacao, String estado,
+    public Pedido(int id, String formaPagamento, LocalDate dataCriacao, String estado,
             LocalDate dataModificacao, Double totalPedido, Boolean situacao) {
         this.id = id;
         this.formaPagamento = formaPagamento;
@@ -58,11 +59,11 @@ public class Pedido {
     }
 
     // gets and setters
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

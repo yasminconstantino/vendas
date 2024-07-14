@@ -1,11 +1,12 @@
 package control;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Scanner;
 
 import dao.ClienteDAO;
-import model.Cliente;
 import dao.PedidoDAO;
+import model.Cliente;
 import model.Pedido;
 
 public class PedidosController {
@@ -49,7 +50,7 @@ public class PedidosController {
 
     private static void checkout() {
         System.out.print("\nDigite o código do pedido: ");
-        long id = input.nextLong();
+        int id = input.nextInt();
         input.nextLine();
         Pedido pedido = PedidoDAO.selectPedidoById(id);
         if (pedido == null) {
@@ -68,7 +69,7 @@ public class PedidosController {
 
     private static void enviar() {
         System.out.print("\nDigite o código do pedido: ");
-        long id = input.nextLong();
+        int id = input.nextInt();
         input.nextLine();
         Pedido pedido = PedidoDAO.selectPedidoById(id);
         if (pedido == null) {
@@ -86,7 +87,7 @@ public class PedidosController {
 
     private static void excluir() {
         System.out.print("\nDigite o código do pedido: ");
-        long id = input.nextLong();
+        int id = input.nextInt();
         input.nextLine();
         if (PedidoDAO.deletePedido(id)) {
             System.out.println("\nPedido excluído com sucesso!");
@@ -141,7 +142,7 @@ public class PedidosController {
 
     private static void selectPedidosByIdCliente() {
         System.out.print("\nDigite o código do cliente: ");
-        long id = input.nextLong();
+        int id = input.nextInt();
         input.nextLine();
         Cliente cliente = ClienteDAO.selectClienteById(id);
         if (cliente == null) {

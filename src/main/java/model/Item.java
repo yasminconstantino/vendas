@@ -4,7 +4,7 @@ package model;
 
 public class Item {
     // atributos
-    private Long idItemPedido;
+    private int idItemPedido;
     private int quantidade;
     private Double totalItem;
     private Boolean situacao;
@@ -13,7 +13,7 @@ public class Item {
     private Produto produto;
 
     // construtores
-    public Item(Long idItemPedido, int quantidade, Double totalItem, Boolean situacao, Produto produto) {
+    public Item(int idItemPedido, int quantidade, Double totalItem, Boolean situacao, Produto produto) {
         this.idItemPedido = idItemPedido;
         this.quantidade = quantidade;
         this.totalItem = totalItem;
@@ -29,11 +29,11 @@ public class Item {
     }
 
     // gets and setters
-    public Long getIdItemPedido() {
+    public int getIdItemPedido() {
         return idItemPedido;
     }
 
-    public void setIdItemPedido(Long idItemPedido) {
+    public void setIdItemPedido(int idItemPedido) {
         this.idItemPedido = idItemPedido;
     }
 

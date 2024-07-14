@@ -48,43 +48,6 @@ public class PedidosController {
         } while (op != 0);
     }
 
-    private static void checkout() {
-        System.out.print("\nDigite o código do pedido: ");
-        int id = input.nextInt();
-        input.nextLine();
-        Pedido pedido = PedidoDAO.selectPedidoById(id);
-        if (pedido == null) {
-            System.out.println("\nPedido não encontrado.");
-        } else {
-            // Assuming we are completing the order (marking it as completed)
-            pedido.setSituacao(false); // Assuming false means completed
-            pedido.setDataModificacao(LocalDate.now());
-            if (PedidoDAO.updatePedido(pedido)) {
-                System.out.println("\nPedido finalizado com sucesso!");
-            } else {
-                System.out.println("\nErro ao finalizar o pedido.");
-            }
-        }
-    }
-
-    private static void enviar() {
-        System.out.print("\nDigite o código do pedido: ");
-        int id = input.nextInt();
-        input.nextLine();
-        Pedido pedido = PedidoDAO.selectPedidoById(id);
-        if (pedido == null) {
-            System.out.println("\nPedido não encontrado.");
-        } else {
-            pedido.setEstado("\nEnviado");
-            pedido.setDataModificacao(LocalDate.now());
-            if (PedidoDAO.updatePedido(pedido)) {
-                System.out.println("\nPedido enviado com sucesso!");
-            } else {
-                System.out.println("\nErro ao enviar o pedido.");
-            }
-        }
-    }
-
     private static void excluir() {
         System.out.print("\nDigite o código do pedido: ");
         int id = input.nextInt();
